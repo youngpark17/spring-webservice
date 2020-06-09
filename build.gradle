@@ -19,6 +19,8 @@ repositories {
 }
 
 dependencies {
+    // https://mvnrepository.com/artifact/pl.allegro.tech.boot/handlebars-spring-boot-starter
+    compile group: 'pl.allegro.tech.boot', name: 'handlebars-spring-boot-starter', version: '0.3.1'
     implementation 'org.springframework.boot:spring-boot-starter-actuator'
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
     implementation 'org.springframework.boot:spring-boot-starter-web'
