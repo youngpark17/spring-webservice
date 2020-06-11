@@ -14,7 +14,7 @@ import javax.persistence.*;
 public class Posts extends BaseTimeEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO) //spring 2부터는 auto increment를 하려면 strategy= 헤야함.
+    @GeneratedValue(strategy = GenerationType.IDENTITY) //spring 2부터는 auto increment를 하려면 strategy= 헤야함.
     private Long id;
 
     @Column(columnDefinition ="TEXT",length = 500, nullable = false)

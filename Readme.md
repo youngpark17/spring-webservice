@@ -38,3 +38,17 @@ Service : Request에 대해 어떤 처리를 할까?
 Service가 Client의 요청에 대한 올바른 정보를 제공하기 위한 처리 -> 비지니스 로직을 수행한다.
 비지니스 로직 & 트랜잭션 관리는 모두 Service에서 관리하고, View 와 연동되는 부분은 Controller에서 담당하도록 구성합니다.
 
+4. 부트2.0.x버전부터는 hibernate 5
+Spring Boot는 Hibernate의 id 생성 전략을 그대로 따라갈지 말지를 결정하는 useNewIdGeneratorMappings 설정이 있다.
+1.5에선 기본값이 false, 2.0부터는 true
+Hibernate 5부터 MySQL에서의 GenerationType.AUTO는 IDENTITY가 아닌 TABLE을 기본 시퀀스 전략
+즉, 1.5에선 Hibernate 5를 쓰더라도 AUTO를 따라가지 않기 때문에 IDENTITY가 선택
+
+5. 왜인진 모르겠지만...
+h2 데이터 베이스 못찾다가. url 설정 추가로 넣으니까 잘 찾음.
+
+6. 규모가 있는 프로젝트에서의 데이터 조회는 FK의 조인, 복잡한 조건등으로 인해 이런 Entity 클래스만으로 처리하기 어려워 조회용 프레임워크를 추가로 사용합니다.
+   대표적 예로 querydsl, jooq, MyBatis 등이 있습니다.
+   조회는 위 3가지 프레임워크중 하나를 통해 조회하고, 등록/수정/삭제 등은 SpringDataJpa를 통해 진행합니다.
+   (개인적으로는 querydsl를 강추합니다.)
+   JPA, querydsl에 대한 더 자세한 내용은 김영한님의 자바 ORM 표준 JPA 프로그래밍 을 참고하시면 아주 좋습니다.

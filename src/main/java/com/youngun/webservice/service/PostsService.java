@@ -1,10 +1,14 @@
 package com.youngun.webservice.service;
 
 import com.youngun.webservice.domain.posts.PostsRepository;
+import com.youngun.webservice.dto.PostsMainResponseDto;
 import com.youngun.webservice.dto.posts.PostsSaveRequestDto;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 @AllArgsConstructor
 @Service
@@ -15,6 +19,16 @@ public class PostsService {
     public Long save(PostsSaveRequestDto dto){
         return postsRepository.save(dto.toEntity()).getId();
     }
+
+    @Transactional(readOnly = true)  //(readOnly = true)을 주면 트랜잭션 범위는 유지하되, 조회 기능만 남겨두어 조회 속도가 개선되기 때문에 특별히 등록/수정/삭제 기능이 없는 메소드에선 사용하시는걸 추천드립니다.
+    public List<PostsMainResponseDto> findAllDesc() {
+        return postsRepository.findAllDesc()
+                .map(PostsMainResponseDto::new)
+                .collect(Collectors.toList());
+    }
+//
+//    .map(PostsMainResponseDto::new)는 실제로는 .map(posts -> new PostsMainResponseDto(posts))와 같습니다.
+//    repository 결과로 넘어온 Posts의 Stream을 map을 통해 PostsMainResponseDto로 변환 -> List로 반환하는 메소드입니다.
 
 
 //    Controller에서 Dto.toEntity를 통해서 바로 전달해도 되는데 굳이 Service에서 Dto를 받는 이유는 간단합니다.

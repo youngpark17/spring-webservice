@@ -1,8 +1,10 @@
 package com.youngun.webservice.web;
 
 
+import com.youngun.webservice.service.PostsService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
@@ -12,8 +14,12 @@ public class WebController {
 //    (prefix: src/main/resources/templates, suffix: .hbs)
 //    즉 여기선 "main"을 반환하니, src/main/resources/templates/main.hbs로 전환되어 View Resolver가 처리하게 됩니다.
 //    (ViewResolver는 URL 요청의 결과를 전달할 타입과 값을 지정하는 관리자 격으로 보시면 됩니다.)
+
+    private PostsService postsService;
+
     @GetMapping("/")
-    public String main() {
+    public String main(Model model) {
+        model.addAttribute("posts", postsService.findAllDesc());
         return "main";
     }
 }
